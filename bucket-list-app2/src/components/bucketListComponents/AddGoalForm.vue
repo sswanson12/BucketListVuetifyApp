@@ -1,5 +1,7 @@
+<!-- This form does not implement the AppModalTemplate. I thought of a template after creating this component. -->
+
 <template>
-  <v-sheet :v-show="isShown" id="addGoalFormWrapper" class="ma-2 elevation-4">
+  <v-sheet id="addGoalFormWrapper" class="ma-2 elevation-4">
     <app-button icon="mdi-close"
                 tool-tip="Close"
                 tool-tip-location="left"
@@ -85,7 +87,6 @@ export default {
   data: function() {
     return {
       currentDate: new Date(),
-      isShown: false,
       newBucketListItem: new BucketListItemModel(`${String(new Date().getMonth() + 1).padStart(2, '0')}/${String(new Date().getDate()).padStart(2, '0')}/${new Date().getFullYear()}`, "", "", false, false, []),
     }
   },

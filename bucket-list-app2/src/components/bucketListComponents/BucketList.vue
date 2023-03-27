@@ -2,11 +2,14 @@
   <div id="bucketListContainer" class="bg-brown-lighten-5">
     <v-sheet class="d-flex bg-brown-lighten-5">
       <div class="ma-5 d-flex flex-wrap justify-center">
-        <bucket-list-item v-for="bucketListItem in bucketListItems" :bucket-list-item="bucketListItem"
-                          class="bucketListItem"
-                          @delete-goal="deleteGoal"
-                          @complete-goal="completeGoal">
-        </bucket-list-item>
+        <div v-for="bucketListItem in bucketListItems">
+          <bucket-list-item :bucket-list-item="bucketListItem"
+                            class="bucketListItem"
+                            @delete-goal="deleteGoal"
+                            @edit-goal="openEditGoalModal">
+          </bucket-list-item>
+          <edit-goal-modal :id="'editGoalModal' + bucketListItem.id" @close-edit-goal-modal="closeEditGoalModal" :bucket-list-item="bucketListItem" style="display: none;"></edit-goal-modal>
+        </div>
       </div>
     </v-sheet>
     <div id="addGoalButtonContainer">
@@ -26,10 +29,11 @@
 import BucketListItem from "@/components/bucketListComponents/BucketListItem";
 import AddGoalForm from "@/components/bucketListComponents/AddGoalForm";
 import AppButton from "@/components/appComponents/AppButton";
+import EditGoalModal from "@/components/bucketListComponents/EditGoalModal";
 
 export default {
   name: "BucketList",
-  components: {BucketListItem, AddGoalForm, AppButton},
+  components: {EditGoalModal, BucketListItem, AddGoalForm, AppButton},
   props: {
     bucketListItems: {
       type: Array,
@@ -54,6 +58,14 @@ export default {
     deleteGoal(bucketListItem){
       console.log("Deleting Goal: " + bucketListItem.goalTitle);
       this.bucketListItems.splice(this.bucketListItems.indexOf(bucketListItem), 1);
+    },
+    openEditGoalModal(bucketListItem){
+      console.log("opening edit goal modal");
+      document.getElementById("editGoalModal" + bucketListItem.id).style.display="block";
+    },
+    closeEditGoalModal(bucketListItem){
+      console.log("closing edit goal modal");
+      document.getElementById("editGoalModal" + bucketListItem.id).style.display="none";
     },
     openNewGoalForm(){
       this.showingAddGoalForm = true;
