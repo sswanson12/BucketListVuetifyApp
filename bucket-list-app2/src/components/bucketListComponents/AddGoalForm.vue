@@ -1,5 +1,3 @@
-<!-- This form does not implement the AppModalTemplate. I thought of a template after creating this component. -->
-
 <template>
   <v-sheet id="addGoalFormWrapper" class="ma-2 elevation-4">
     <app-button icon="mdi-close"
