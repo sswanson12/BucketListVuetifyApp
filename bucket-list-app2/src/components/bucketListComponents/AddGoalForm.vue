@@ -71,8 +71,12 @@ export default {
     },
     addGoal(){
       console.log("calling add goal");
-      this.$emit("add-goal", this.newBucketListItem);
-      this.clearNewItem();
+      if (!this.newBucketListItem.goalTitle.length < 1){
+        this.$emit("add-goal", this.newBucketListItem);
+        this.clearNewItem();
+      } else {
+        this.clearNewItem();
+      }
     },
     closeForm(){
       this.$emit("close-add-goal-form")
